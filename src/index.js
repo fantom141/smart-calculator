@@ -1,27 +1,42 @@
 class SmartCalculator {
-  constructor(initialValue) {
-    // your implementation
-  }
 
-  add(number) {
-    // your implementation
-  }
-  
-  subtract(number) {
-    // your implementation
-  }
+    constructor(initVal) {
+        this.initVal = initVal;
+        this.expression = [this.initVal];
+    }
 
-  multiply(number) {
-    // your implementation
-  }
+    add(number) {
+        this.expression.push('+', number);
+        return this;
+    }
 
-  devide(number) {
-    // your implementation
-  }
+    subtract(number) {
+        this.expression.push('-', number);
+        return this;
+    }
 
-  pow(number) {
-    // your implementation
-  }
+    multiply(number) {
+        this.expression.push('*', number);
+        return this;
+    }
+
+    devide(number) {
+        this.expression.push('/', number);
+        return this;
+    }
+
+    pow(number) {
+        if (!this.expression[this.expression.length - 1].toString().includes('pow')) {
+            this.expression[this.expression.length - 1] = `Math.pow(${this.expression[this.expression.length - 1]}, ${number})`;
+            return this;
+        } else {
+            return this;
+        }
+    }
+
+    valueOf() {
+        return new Function('', `return ${this.expression.join('')}`)();
+    }
 }
 
 module.exports = SmartCalculator;
